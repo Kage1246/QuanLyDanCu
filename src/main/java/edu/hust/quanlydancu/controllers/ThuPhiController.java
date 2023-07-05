@@ -16,6 +16,7 @@ public class ThuPhiController {
     @Autowired
     ThuPhiService thuPhiService;
 
+    //http://localhost:8081/api/v1/thu-phi thêm body là khoản phí, cái này tạo cả dữ liệu dóng góp
     @PostMapping("")
     ResponseEntity<?> createKhoanPhi(@RequestBody KhoanPhiDTO khoanPhiDTO) {
         try {
@@ -26,7 +27,7 @@ public class ThuPhiController {
             return ResponseEntity.badRequest().body("Create failed.");
         }
     }
-
+    //http://localhost:8081/api/v1/thu-phi/khoan-phi?id=10
     @GetMapping("/khoan-phi")
     ResponseEntity<?> getByKhoanPhi(@RequestParam Integer id) {
         try {
@@ -36,6 +37,7 @@ public class ThuPhiController {
             return ResponseEntity.badRequest().body("Get failed.");
         }
     }
+    //http://localhost:8081/api/v1/thu-phi/ho-khau?id=10
     @GetMapping("/ho-khau")
     ResponseEntity<?> getByHoKhau(@RequestParam Integer id) {
         try {

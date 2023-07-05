@@ -18,15 +18,17 @@ public class DongGopController {
     @Autowired
     DongGopService dongGopService;
 
-//    @GetMapping("")
-//    public ResponseEntity<?> getAll() {
-//        try {
-//            return ResponseEntity.ok(dongGopService.getAll());
-//        }catch (Exception e) {
-//            e.printStackTrace();
-//            return ResponseEntity.badRequest().body("Bad request");
-//        }
-//    }
+    //http://localhost:8081/api/v1/dong-gop/all
+    @GetMapping("/all")
+    public ResponseEntity<?> getAll() {
+        try {
+            return ResponseEntity.ok(dongGopService.getAll());
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Bad request");
+        }
+    }
+    //http://localhost:8081/api/v1/dong-gop?id=10
     @GetMapping("")
     public ResponseEntity<?> getById(@RequestParam String id) {
         try {
@@ -36,6 +38,7 @@ public class DongGopController {
             return ResponseEntity.badRequest().body("Bad request");
         }
     }
+    //http://localhost:8081/api/v1/dong-gop thêm body
     @PostMapping("")
     public ResponseEntity<?> createNew(@RequestBody DongGopDTO dto) {
         try {
@@ -45,6 +48,7 @@ public class DongGopController {
             return ResponseEntity.badRequest().body("Bad request");
         }
     }
+    //http://localhost:8081/api/v1/dong-gop?id=10 nhớ thêm body
     @PutMapping("")
     public ResponseEntity<?> updateById(@RequestBody DongGopDTO dto, @RequestParam String id) {
         try {
@@ -55,6 +59,7 @@ public class DongGopController {
             return ResponseEntity.badRequest().body("Bad request");
         }
     }
+    //http://localhost:8081/api/v1/dong-gop
     @DeleteMapping("")
     public ResponseEntity<?> deleteById(@RequestParam String id) {
         try {
@@ -65,6 +70,7 @@ public class DongGopController {
             return ResponseEntity.badRequest().body("Bad request");
         }
     }
+    //http://localhost:8081/api/v1/dong-gop/by-khoan-phi?name=vệ sinh&from=2022-01-01&to=2024-01-01
     @GetMapping("/by-khoan-phi")
     public ResponseEntity<?> getByKhoanPhi(@RequestParam String name, @RequestParam String from, @RequestParam String to) {
         try {
