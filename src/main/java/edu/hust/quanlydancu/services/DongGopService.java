@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -41,7 +40,11 @@ public class DongGopService {
     }
     public List<DongGopDTO> getByKhoanPhi(String khoanPhi, Date from, Date to) {
         return dongGopMapper.toDto(dongGopRepository.
-                findByKhoanPhiByIdKhoanPhiContainsAndNgayDongBetween
+                findByKhoanPhiByIdKhoanPhiContains
                         (khoanPhi, from, to));
+    }
+    public List<DongGopDTO> getByChuHo(String chuHo, Date from, Date to) {
+        return dongGopMapper.toDto(dongGopRepository.
+                findByChuHoContains(chuHo, from, to));
     }
 }

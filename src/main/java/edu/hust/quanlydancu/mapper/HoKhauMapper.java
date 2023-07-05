@@ -4,9 +4,7 @@
  */
 package edu.hust.quanlydancu.mapper;
 
-import edu.hust.quanlydancu.dtos.DongGopDTO;
 import edu.hust.quanlydancu.dtos.HoKhauDTO;
-import edu.hust.quanlydancu.entities.DongGop;
 import edu.hust.quanlydancu.entities.HoKhau;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

@@ -1,11 +1,13 @@
 /**
  * This class was created by Kage
- * This class was created at 05-Jul-23 22:05:32
+ * This class was created at 05-Jul-23 23:50:12
  */
 package edu.hust.quanlydancu.controllers;
 
 import edu.hust.quanlydancu.dtos.DongGopDTO;
-import edu.hust.quanlydancu.services.DongGopService;
+import edu.hust.quanlydancu.dtos.ThamGiaDTO;
+import edu.hust.quanlydancu.entities.ThamGia;
+import edu.hust.quanlydancu.services.ThamGiaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -13,82 +15,81 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Date;
 
 @RestController
-@RequestMapping("/api/v1/dong-gop")
-public class DongGopController {
+@RequestMapping("/api/v1/tham-gia")
+public class ThamGiaController {
     @Autowired
-    DongGopService dongGopService;
-
-    //http://localhost:8081/api/v1/dong-gop/all
+    ThamGiaService thamGiaService;
+    //http://localhost:8081/api/v1/tham-gia/all
     @GetMapping("/all")
     public ResponseEntity<?> getAll() {
         try {
-            return ResponseEntity.ok(dongGopService.getAll());
+            return ResponseEntity.ok(thamGiaService.getAll());
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
         }
     }
-    //http://localhost:8081/api/v1/dong-gop?id=10
+    //http://localhost:8081/api/v1/tham-gia?id=10
     @GetMapping("")
     public ResponseEntity<?> getById(@RequestParam String id) {
         try {
-            return ResponseEntity.ok(dongGopService.getById(Integer.valueOf(id)));
+            return ResponseEntity.ok(thamGiaService.getById(Integer.valueOf(id)));
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
         }
     }
-    //http://localhost:8081/api/v1/dong-gop thêm body
+    //http://localhost:8081/api/v1/tham-gia thêm body
     @PostMapping("")
-    public ResponseEntity<?> createNew(@RequestBody DongGopDTO dto) {
+    public ResponseEntity<?> createNew(@RequestBody ThamGiaDTO dto) {
         try {
-            return ResponseEntity.ok(dongGopService.createNew(dto));
+            return ResponseEntity.ok(thamGiaService.createNew(dto));
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
         }
     }
-    //http://localhost:8081/api/v1/dong-gop?id=10 nhớ thêm body
+    //http://localhost:8081/api/v1/tham-gia?id=10 nhớ thêm body
     @PutMapping("")
-    public ResponseEntity<?> updateById(@RequestBody DongGopDTO dto, @RequestParam String id) {
+    public ResponseEntity<?> updateById(@RequestBody ThamGiaDTO dto, @RequestParam String id) {
         try {
-            dongGopService.updateById(dto, Integer.valueOf(id));
+            thamGiaService.updateById(dto, Integer.valueOf(id));
             return ResponseEntity.ok().build();
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
         }
     }
-    //http://localhost:8081/api/v1/dong-gop
+    //http://localhost:8081/api/v1/tham-gia
     @DeleteMapping("")
     public ResponseEntity<?> deleteById(@RequestParam String id) {
         try {
-            dongGopService.deleteById(Integer.valueOf(id));
+            thamGiaService.deleteById(Integer.valueOf(id));
             return ResponseEntity.ok().build();
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
         }
     }
-    //http://localhost:8081/api/v1/dong-gop/by-khoan-phi?name=vệ sinh&from=2022-01-01&to=2024-01-01
-    @GetMapping("/by-khoan-phi")
-    public ResponseEntity<?> getByKhoanPhi(@RequestParam String name, @RequestParam String from, @RequestParam String to) {
+    //http://localhost:8081/api/v1/tham-gia/by-sinh-hoat?name=vệ sinh&from=2022-01-01&to=2024-01-01
+    @GetMapping("/by-sinh-hoat")
+    public ResponseEntity<?> getBySinhHoat(@RequestParam String name, @RequestParam String from, @RequestParam String to) {
         try {
             System.out.println(from);
             System.out.println(to);
-            return ResponseEntity.ok(dongGopService.getByKhoanPhi(name, Date.valueOf(from), Date.valueOf(to)));
+            return ResponseEntity.ok(thamGiaService.getAllBySinhHoat(name, Date.valueOf(from), Date.valueOf(to)));
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
         }
     }
-    //http://localhost:8081/api/v1/dong-gop/by-chu-ho?name=vệ sinh&from=2022-01-01&to=2024-01-01
+    //http://localhost:8081/api/v1/tham-gia/by-chu-ho?name=vệ sinh&from=2022-01-01&to=2024-01-01
     @GetMapping("/by-chu-ho")
     public ResponseEntity<?> getByChuHo(@RequestParam String name, @RequestParam String from, @RequestParam String to) {
         try {
             System.out.println(from);
             System.out.println(to);
-            return ResponseEntity.ok(dongGopService.getByChuHo(name, Date.valueOf(from), Date.valueOf(to)));
+            return ResponseEntity.ok(thamGiaService.getAllByChuHo(name, Date.valueOf(from), Date.valueOf(to)));
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");

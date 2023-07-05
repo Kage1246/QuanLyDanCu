@@ -13,12 +13,11 @@ import org.springframework.stereotype.Repository;
 
 import java.sql.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface DongGopRepository extends JpaRepository<DongGop, Integer> {
-    @Query("select d from DongGop d where d.hoKhauByIdHoKhau = ?1")
-    List<DongGop> findAllByHoKhauByIdHoKhau(Optional<HoKhau> hoKhau);
+    @Query("select d from DongGop d where d.hoKhauByIdHoKhau.id = ?1")
+    List<DongGop> findAllByHoKhauByIdHoKhau(Integer idHoKhau);
 
     @Query("""
         update DongGop
@@ -31,5 +30,10 @@ public interface DongGopRepository extends JpaRepository<DongGop, Integer> {
     @Query("""
             select d from DongGop d
             where d.khoanPhiByIdKhoanPhi.ten like concat('%', ?1, '%') and d.ngayDong between ?2 and ?3""")
-    List<DongGop> findByKhoanPhiByIdKhoanPhiContainsAndNgayDongBetween(String khoanPhi, Date from, Date to);
+    List<DongGop> findByKhoanPhiByIdKhoanPhiContains(String khoanPhi, Date from, Date to);
+
+    @Query("""
+            select d from DongGop d
+            where d.hoKhauByIdHoKhau.chuHo.hoTen like concat('%', ?1, '%') and d.ngayDong between ?2 and ?3""")
+    List<DongGop> findByChuHoContains(String chuHo, Date from, Date to);
 }

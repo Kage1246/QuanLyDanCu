@@ -78,9 +78,8 @@ public class ThuPhiService {
     }
 
     public List<DongGopDTO> getAllByHoKhau(Integer id) {
-        Optional<HoKhau> hoKhau = hoKhauRepository.findById(id);
         List<DongGopDTO> list = new ArrayList<>();
-        for (DongGop dongGop : dongGopRepository.findAllByHoKhauByIdHoKhau(hoKhau)) {
+        for (DongGop dongGop : dongGopRepository.findAllByHoKhauByIdHoKhau(id)) {
             list.add(dongGopMapper.toDto(dongGop));
         }
         return list;
