@@ -4,9 +4,7 @@
  */
 package edu.hust.quanlydancu.controllers;
 
-import edu.hust.quanlydancu.dtos.DongGopDTO;
 import edu.hust.quanlydancu.dtos.ThamGiaDTO;
-import edu.hust.quanlydancu.entities.ThamGia;
 import edu.hust.quanlydancu.services.ThamGiaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

@@ -20,10 +20,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
-public class ThuPhiService {
+public class KhoanPhiService {
     @Autowired
     KhoanPhiRepository khoanPhiRepository;
     @Autowired
@@ -36,6 +35,17 @@ public class ThuPhiService {
     KhoanPhiMapper khoanPhiMapper;
     @Autowired
     DongGopMapper dongGopMapper;
+    public List<KhoanPhiDTO> getAll() {
+        return khoanPhiMapper.toDto(khoanPhiRepository.findAll());
+    }
+    public void updateById(KhoanPhiDTO dto, Integer id) {
+        KhoanPhi entity = khoanPhiMapper.toEntity(dto);
+        khoanPhiRepository.setKhoanPhiById(entity.getTen(), entity.getBatDau(), entity.getKetThuc(),
+                entity.getBatBuoc(), entity.getDinhMuc(), id);
+    }
+    public void deleteById(Integer id) {
+        dongGopRepository.deleteById(id);
+    }
     public void createKhoanPhi(KhoanPhiDTO khoanPhiDTO) {
         KhoanPhi khoanPhi = khoanPhiRepository.save(khoanPhiMapper.toEntity(khoanPhiDTO));
         List<HoKhau> hoKhauList = hoKhauRepository.findAll();
@@ -59,7 +69,6 @@ public class ThuPhiService {
             }
         }
     }
-
     public KhoanPhiDTO getListDongGopByKhoanPhi(Integer id) {
         KhoanPhi khoanPhi = khoanPhiRepository.getReferenceById(id);
         KhoanPhiDTO khoanPhiDTO = new KhoanPhiDTO();
@@ -75,13 +84,5 @@ public class ThuPhiService {
         }
         khoanPhiDTO.setDongGopsById(list);
         return khoanPhiDTO;
-    }
-
-    public List<DongGopDTO> getAllByHoKhau(Integer id) {
-        List<DongGopDTO> list = new ArrayList<>();
-        for (DongGop dongGop : dongGopRepository.findAllByHoKhauByIdHoKhau(id)) {
-            list.add(dongGopMapper.toDto(dongGop));
-        }
-        return list;
     }
 }

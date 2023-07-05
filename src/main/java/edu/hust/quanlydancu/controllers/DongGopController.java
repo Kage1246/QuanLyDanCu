@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/dong-gop")
@@ -70,6 +71,16 @@ public class DongGopController {
             return ResponseEntity.badRequest().body("Bad request");
         }
     }
+    //http://localhost:8081/api/v1/dong-gop/by-ho-khau?id=10
+    @GetMapping("/by-ho-khau")
+    ResponseEntity<?> getByHoKhau(@RequestParam Integer id) {
+        try {
+            return ResponseEntity.ok(dongGopService.getListByIdHoKhau(id));
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Get failed.");
+        }
+    }
     //http://localhost:8081/api/v1/dong-gop/by-khoan-phi?name=vệ sinh&from=2022-01-01&to=2024-01-01
     @GetMapping("/by-khoan-phi")
     public ResponseEntity<?> getByKhoanPhi(@RequestParam String name, @RequestParam String from, @RequestParam String to) {
@@ -89,6 +100,17 @@ public class DongGopController {
             System.out.println(from);
             System.out.println(to);
             return ResponseEntity.ok(dongGopService.getByChuHo(name, Date.valueOf(from), Date.valueOf(to)));
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Bad request");
+        }
+    }
+    //http://localhost:8081/api/v1/dong-gop/all
+    @PutMapping("/all")
+    public ResponseEntity<?> updateList(@RequestBody List<DongGopDTO> dtoList) {
+        try {
+            dongGopService.updateList(dtoList);
+            return ResponseEntity.ok().build();
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");

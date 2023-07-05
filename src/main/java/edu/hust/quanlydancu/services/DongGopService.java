@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -46,5 +47,17 @@ public class DongGopService {
     public List<DongGopDTO> getByChuHo(String chuHo, Date from, Date to) {
         return dongGopMapper.toDto(dongGopRepository.
                 findByChuHoContains(chuHo, from, to));
+    }
+    public void updateList(List<DongGopDTO> dtoList) {
+        for (DongGopDTO dto : dtoList) {
+            updateById(dto, dto.getId());
+        }
+    }
+    public List<DongGopDTO> getListByIdHoKhau(Integer id) {
+        List<DongGopDTO> list = new ArrayList<>();
+        for (DongGop dongGop : dongGopRepository.findAllByHoKhauByIdHoKhau(id)) {
+            list.add(dongGopMapper.toDto(dongGop));
+        }
+        return list;
     }
 }
