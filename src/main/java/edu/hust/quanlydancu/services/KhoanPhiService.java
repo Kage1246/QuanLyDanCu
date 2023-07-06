@@ -35,9 +35,6 @@ public class KhoanPhiService {
     KhoanPhiMapper khoanPhiMapper;
     @Autowired
     DongGopMapper dongGopMapper;
-    public List<KhoanPhiDTO> getAll() {
-        return khoanPhiMapper.toDto(khoanPhiRepository.findAll());
-    }
     public void updateById(KhoanPhiDTO dto, Integer id) {
         KhoanPhi entity = khoanPhiMapper.toEntity(dto);
         khoanPhiRepository.setKhoanPhiById(entity.getTen(), entity.getBatDau(), entity.getKetThuc(),
@@ -84,5 +81,13 @@ public class KhoanPhiService {
         }
         khoanPhiDTO.setDongGopsById(list);
         return khoanPhiDTO;
+    }
+    public List<KhoanPhiDTO> getAll() {
+        List<KhoanPhiDTO> listDto = new ArrayList<>();
+        List<KhoanPhi> listEntity = khoanPhiRepository.findAll();
+        for (KhoanPhi entity : listEntity) {
+            listDto.add(getListDongGopByKhoanPhi(entity.getId()));
+        }
+        return listDto;
     }
 }
