@@ -9,7 +9,9 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Repository
 public interface SinhHoatRepository extends JpaRepository<SinhHoat, Integer> {
@@ -19,4 +21,12 @@ public interface SinhHoatRepository extends JpaRepository<SinhHoat, Integer> {
         diaDiem = ?4
         where id = ?5""")
     void setSinhHoatById(String chuDe, Timestamp from, Timestamp to, String diaDiem, Integer id);
+
+    @Query("""
+    select g.sinhHoatByIdSinhHoat from ThanhVienCuaHo v
+    join ThamGia g on g.nhanKhauByIdNhanKhau = v.nhanKhauByIdNhanKhau
+    where v.hoKhauByIdHoKhau.chuHo.hoTen like concat('%', ?1, '%')
+    and g.sinhHoatByIdSinhHoat.batDau between ?2 and ?3
+    """)
+    List<SinhHoat> findByChuHo(String chuHo, Date from, Date to);
 }
