@@ -6,6 +6,7 @@ package edu.hust.quanlydancu.controllers;
 
 import edu.hust.quanlydancu.dtos.KhoanPhiDTO;
 import edu.hust.quanlydancu.services.KhoanPhiService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,8 @@ public class KhoanPhiController {
         try {
             khoanPhiService.updateById(dto, id);
             return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
@@ -43,6 +46,8 @@ public class KhoanPhiController {
         try {
             khoanPhiService.deleteById(id);
             return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
@@ -64,6 +69,8 @@ public class KhoanPhiController {
     ResponseEntity<?> getByKhoanPhi(@RequestParam Integer id) {
         try {
             return ResponseEntity.ok(khoanPhiService.getListDongGopByKhoanPhi(id));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");

@@ -6,6 +6,7 @@ package edu.hust.quanlydancu.controllers;
 
 import edu.hust.quanlydancu.dtos.ThamGiaDTO;
 import edu.hust.quanlydancu.services.ThamGiaService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +33,8 @@ public class ThamGiaController {
     public ResponseEntity<?> getById(@RequestParam String id) {
         try {
             return ResponseEntity.ok(thamGiaService.getById(Integer.valueOf(id)));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
@@ -53,6 +56,8 @@ public class ThamGiaController {
         try {
             thamGiaService.updateById(dto, Integer.valueOf(id));
             return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
@@ -64,6 +69,8 @@ public class ThamGiaController {
         try {
             thamGiaService.deleteById(Integer.valueOf(id));
             return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");

@@ -6,6 +6,7 @@ package edu.hust.quanlydancu.controllers;
 
 import edu.hust.quanlydancu.dtos.SinhHoatDTO;
 import edu.hust.quanlydancu.services.SinhHoatService;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,6 +32,8 @@ public class SinhHoatController {
     ResponseEntity<?> getById(@RequestParam Integer id) {
         try {
             return ResponseEntity.ok(sinhHoatService.getById(id));
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
@@ -42,6 +45,8 @@ public class SinhHoatController {
         try {
             sinhHoatService.updateById(dto, id);
             return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
@@ -53,6 +58,8 @@ public class SinhHoatController {
         try {
             sinhHoatService.deleteById(id);
             return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException e) {
+            return ResponseEntity.notFound().build();
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
