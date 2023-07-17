@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class KhoanPhiService {
@@ -36,9 +37,27 @@ public class KhoanPhiService {
     @Autowired
     DongGopMapper dongGopMapper;
     public void updateById(KhoanPhiDTO dto, Integer id) {
-        KhoanPhi entity = khoanPhiMapper.toEntity(dto);
-        khoanPhiRepository.setKhoanPhiById(entity.getTen(), entity.getBatDau(), entity.getKetThuc(),
-                entity.getBatBuoc(), entity.getDinhMuc(), id);
+        Optional<KhoanPhi> optional = khoanPhiRepository.findById(id);
+        KhoanPhi newEntity = khoanPhiMapper.toEntity(dto);
+        if (optional.isPresent()) {
+            KhoanPhi entity = optional.get();
+            if (newEntity.getTen() != null) {
+                entity.setTen(newEntity.getTen());
+            }
+            if (newEntity.getBatDau() != null) {
+                entity.setBatDau(newEntity.getBatDau());
+            }
+            if (newEntity.getKetThuc() != null) {
+                entity.setKetThuc(newEntity.getKetThuc());
+            }
+            if (newEntity.getBatBuoc() != null) {
+                entity.setBatBuoc(newEntity.getBatBuoc());
+            }
+            if (newEntity.getDinhMuc() != null) {
+                entity.setDinhMuc(newEntity.getDinhMuc());
+            }
+            khoanPhiRepository.save(entity);
+        }
     }
     public void deleteById(Integer id) {
         dongGopRepository.deleteById(id);

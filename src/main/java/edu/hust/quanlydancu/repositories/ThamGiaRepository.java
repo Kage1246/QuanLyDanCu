@@ -14,11 +14,11 @@ import java.util.List;
 
 @Repository
 public interface ThamGiaRepository extends JpaRepository<ThamGia, Integer> {
-    @Query("""
-        update ThamGia
-        set nhanKhauByIdNhanKhau = ?1, sinhHoatByIdSinhHoat = ?2
-        where id = ?3""")
-    void setDongGopById(NhanKhau nhanKhau, SinhHoat sinhHoat, Integer id);
+//    @Query("""
+//        update ThamGia
+//        set nhanKhauByIdNhanKhau = ?1, sinhHoatByIdSinhHoat = ?2
+//        where id = ?3""")
+//    void setDongGopById(NhanKhau nhanKhau, SinhHoat sinhHoat, Integer id);
 
     @Query("""
     select t from ThamGia t

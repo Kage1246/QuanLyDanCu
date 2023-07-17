@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SinhHoatService {
@@ -53,9 +54,24 @@ public class SinhHoatService {
         sinhHoatMapper.toDto(entity);
     }
     public void updateById(SinhHoatDTO dto, Integer id) {
-        SinhHoat entity = sinhHoatMapper.toEntity(dto);
-        sinhHoatRepository.setSinhHoatById(entity.getChuDe(),
-                entity.getBatDau(), entity.getKetThuc(), entity.getDiaDiem(), id);
+        Optional<SinhHoat> optional = sinhHoatRepository.findById(id);
+        SinhHoat newEntity = sinhHoatMapper.toEntity(dto);
+        if (optional.isPresent()) {
+            SinhHoat entity = optional.get();
+            if (newEntity.getChuDe() != null) {
+                entity.setChuDe(newEntity.getChuDe());
+            }
+            if (newEntity.getBatDau() != null) {
+                entity.setBatDau(newEntity.getBatDau());
+            }
+            if (newEntity.getKetThuc() != null) {
+                entity.setKetThuc(newEntity.getKetThuc());
+            }
+            if (newEntity.getDiaDiem() != null) {
+                entity.setDiaDiem(newEntity.getDiaDiem());
+            }
+            sinhHoatRepository.save(entity);
+        }
     }
     public void deleteById(Integer id) {
         sinhHoatRepository.deleteById(id);

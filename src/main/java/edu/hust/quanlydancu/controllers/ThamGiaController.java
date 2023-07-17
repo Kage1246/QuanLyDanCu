@@ -50,19 +50,6 @@ public class ThamGiaController {
             return ResponseEntity.badRequest().body("Bad request");
         }
     }
-    //http://localhost:8081/api/v1/tham-gia?id=10 nhớ thêm body
-    @PutMapping("")
-    public ResponseEntity<?> updateById(@RequestBody ThamGiaDTO dto, @RequestParam String id) {
-        try {
-            thamGiaService.updateById(dto, Integer.valueOf(id));
-            return ResponseEntity.ok().build();
-        } catch (EntityNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().body("Bad request");
-        }
-    }
     //http://localhost:8081/api/v1/tham-gia
     @DeleteMapping("")
     public ResponseEntity<?> deleteById(@RequestParam String id) {

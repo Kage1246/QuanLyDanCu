@@ -9,11 +9,13 @@ import edu.hust.quanlydancu.entities.DongGop;
 import edu.hust.quanlydancu.mapper.DongGopMapper;
 import edu.hust.quanlydancu.repositories.DongGopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DongGopService {
@@ -32,9 +34,21 @@ public class DongGopService {
         return dongGopMapper.toDto(entity);
     }
     public void updateById(DongGopDTO dto, Integer id) {
-        DongGop entity = dongGopMapper.toEntity(dto);
-        dongGopRepository.setDongGopById(entity.getSoTien(), entity.getDaDong(), entity.getNgayDong(),
-                entity.getKhoanPhiByIdKhoanPhi(), entity.getHoKhauByIdHoKhau(), id);
+        Optional<DongGop> optional = dongGopRepository.findById(id);
+        DongGop newEntity = dongGopMapper.toEntity(dto);
+        if (optional.isPresent()) {
+            DongGop entity = optional.get();
+            if (newEntity.getDaDong() != null) {
+                entity.setDaDong(newEntity.getDaDong());
+            }
+            if (newEntity.getNgayDong() != null) {
+                entity.setNgayDong(newEntity.getNgayDong());
+            }
+            if (newEntity.getSoTien() != null) {
+                entity.setSoTien(newEntity.getSoTien());
+            }
+            dongGopRepository.save(entity);
+        }
     }
     public void deleteById(Integer id) {
         dongGopRepository.deleteById(id);

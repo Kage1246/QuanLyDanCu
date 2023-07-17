@@ -15,10 +15,10 @@ import java.sql.Timestamp;
 
 @Repository
 public interface KhoanPhiRepository extends JpaRepository<KhoanPhi, Integer> {
-    @Query("""
-        update KhoanPhi
-        set ten = ?1, batDau = ?2, ketThuc = ?3,
-        batBuoc = ?4, dinhMuc = ?5
-        where id = ?6""")
-    void setKhoanPhiById(String name, Date from, Date to, Byte compulsory, Long price, Integer id);
+//    @Query("""
+//        update KhoanPhi
+//        set ten = ?1, batDau = ?2, ketThuc = ?3,
+//        batBuoc = ?4, dinhMuc = ?5
+//        where id = ?6""")
+//    void setKhoanPhiById(String name, Date from, Date to, Byte compulsory, Long price, Integer id);
 }

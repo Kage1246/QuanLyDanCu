@@ -9,9 +9,9 @@ import java.util.Collection;
 public class SinhHoatDTO {
     private Integer id;
     private String chuDe;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private java.sql.Timestamp batDau;
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+//    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private java.sql.Timestamp ketThuc;
     private String diaDiem;
     private Collection<ThamGiaDTO> thamGiasById;

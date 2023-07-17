@@ -19,21 +19,21 @@ public interface DongGopRepository extends JpaRepository<DongGop, Integer> {
     @Query("select d from DongGop d where d.hoKhauByIdHoKhau.id = ?1")
     List<DongGop> findAllByHoKhauByIdHoKhau(Integer idHoKhau);
 
-    @Query("""
-        update DongGop
-        set soTien = ?1, daDong = ?2, ngayDong = ?3,
-        khoanPhiByIdKhoanPhi = ?4,
-        hoKhauByIdHoKhau = ?5
-        where id = ?6""")
-    void setDongGopById(Long soTien, Byte daDong, Date ngayDong, KhoanPhi khoanPhi, HoKhau hoKhau, Integer id);
+//    @Query("""
+//        update DongGop
+//        set soTien = ?1, daDong = ?2, ngayDong = ?3,
+//        khoanPhiByIdKhoanPhi = ?4,
+//        hoKhauByIdHoKhau = ?5
+//        where id = ?6""")
+//    void setDongGopById(Long soTien, Byte daDong, Date ngayDong, KhoanPhi khoanPhi, HoKhau hoKhau, Integer id);
 
     @Query("""
             select d from DongGop d
-            where d.khoanPhiByIdKhoanPhi.ten like concat('%', ?1, '%') and d.ngayDong between ?2 and ?3""")
+            where d.khoanPhiByIdKhoanPhi.ten like concat('%', ?1, '%') and d.khoanPhiByIdKhoanPhi.ketThuc between ?2 and ?3""")
     List<DongGop> findByKhoanPhiByIdKhoanPhiContains(String khoanPhi, Date from, Date to);
 
     @Query("""
             select d from DongGop d
-            where d.hoKhauByIdHoKhau.chuHo.hoTen like concat('%', ?1, '%') and d.ngayDong between ?2 and ?3""")
+            where d.hoKhauByIdHoKhau.chuHo.hoTen like concat('%', ?1, '%') and d.khoanPhiByIdKhoanPhi.ketThuc between ?2 and ?3""")
     List<DongGop> findByChuHoContains(String chuHo, Date from, Date to);
 }

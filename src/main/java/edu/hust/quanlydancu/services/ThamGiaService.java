@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 
 import java.sql.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ThamGiaService {
@@ -43,11 +44,6 @@ public class ThamGiaService {
     public ThamGiaDTO createNew(ThamGiaDTO dto) {
         ThamGia entity = thamGiaRepository.save(thamGiaMapper.toEntity(dto));
         return thamGiaMapper.toDto(entity);
-    }
-    public void updateById(ThamGiaDTO dto, Integer id) {
-        ThamGia entity = thamGiaMapper.toEntity(dto);
-        thamGiaRepository.setDongGopById(entity.getNhanKhauByIdNhanKhau(),
-                entity.getSinhHoatByIdSinhHoat(), id);
     }
     public void deleteById(Integer id) {
         thamGiaRepository.deleteById(id);
