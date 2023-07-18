@@ -11,6 +11,7 @@ import edu.hust.quanlydancu.entities.ThamGia;
 import edu.hust.quanlydancu.mapper.SinhHoatMapper;
 import edu.hust.quanlydancu.mapper.ThamGiaMapper;
 import edu.hust.quanlydancu.repositories.SinhHoatRepository;
+import edu.hust.quanlydancu.repositories.ThamGiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,8 @@ import java.util.Optional;
 public class SinhHoatService {
     @Autowired
     SinhHoatRepository sinhHoatRepository;
+    @Autowired
+    ThamGiaRepository thamGiaRepository;
     @Autowired
     SinhHoatMapper sinhHoatMapper;
     @Autowired
@@ -74,6 +77,10 @@ public class SinhHoatService {
         }
     }
     public void deleteById(Integer id) {
+        List<ThamGia> thamGias = thamGiaRepository.findAllByIdSinhHoat(id);
+        for (ThamGia thamGia : thamGias) {
+            thamGiaRepository.deleteById(thamGia.getId());
+        }
         sinhHoatRepository.deleteById(id);
     }
 }

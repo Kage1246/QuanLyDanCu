@@ -60,7 +60,11 @@ public class KhoanPhiService {
         }
     }
     public void deleteById(Integer id) {
-        dongGopRepository.deleteById(id);
+        List<DongGop> dongGops = dongGopRepository.findAllByIdKhoanPhi(id);
+        for (DongGop dongGop : dongGops) {
+            dongGopRepository.deleteById(dongGop.getId());
+        }
+        khoanPhiRepository.deleteById(id);
     }
     public void createKhoanPhi(KhoanPhiDTO khoanPhiDTO) {
         KhoanPhi khoanPhi = khoanPhiRepository.save(khoanPhiMapper.toEntity(khoanPhiDTO));

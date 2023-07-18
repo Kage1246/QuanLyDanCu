@@ -19,6 +19,9 @@ public interface DongGopRepository extends JpaRepository<DongGop, Integer> {
     @Query("select d from DongGop d where d.hoKhauByIdHoKhau.id = ?1")
     List<DongGop> findAllByHoKhauByIdHoKhau(Integer idHoKhau);
 
+    @Query("select d from DongGop d where d.khoanPhiByIdKhoanPhi.id = ?1")
+    List<DongGop> findAllByIdKhoanPhi(Integer idKhoanPhi);
+
 //    @Query("""
 //        update DongGop
 //        set soTien = ?1, daDong = ?2, ngayDong = ?3,

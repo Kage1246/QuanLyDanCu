@@ -35,4 +35,7 @@ public interface ThamGiaRepository extends JpaRepository<ThamGia, Integer> {
     and t.sinhHoatByIdSinhHoat.batDau between ?2 and ?3
     """)
     List<ThamGia> findByChuHoContains(String chuHo, Date from, Date to);
+
+    @Query("select t from ThamGia t where t.sinhHoatByIdSinhHoat.id = ?1")
+    List<ThamGia> findAllByIdSinhHoat(Integer idSinhHoat);
 }
