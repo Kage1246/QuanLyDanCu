@@ -5,6 +5,7 @@
 package edu.hust.quanlydancu.controllers;
 
 import edu.hust.quanlydancu.dtos.ThamGiaDTO;
+import edu.hust.quanlydancu.mapper.NhanKhauMapper;
 import edu.hust.quanlydancu.repositories.NhanKhauRepository;
 import edu.hust.quanlydancu.services.ThamGiaService;
 import jakarta.persistence.EntityNotFoundException;
@@ -21,6 +22,8 @@ public class ThamGiaController {
     ThamGiaService thamGiaService;
     @Autowired
     NhanKhauRepository nhanKhauRepository;
+    @Autowired
+    NhanKhauMapper nhanKhauMapper;
     //http://localhost:8081/api/v1/tham-gia/all
     @GetMapping("/all")
     public ResponseEntity<?> getAll() {
@@ -90,7 +93,7 @@ public class ThamGiaController {
     @GetMapping("/nhan-khau")
     public ResponseEntity<?> getNhanKhau() {
         try {
-            return ResponseEntity.ok(nhanKhauRepository.findAll());
+            return ResponseEntity.ok(nhanKhauMapper.toDto(nhanKhauRepository.findAll()));
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
