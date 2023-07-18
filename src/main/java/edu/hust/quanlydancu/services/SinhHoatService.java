@@ -6,10 +6,12 @@ package edu.hust.quanlydancu.services;
 
 import edu.hust.quanlydancu.dtos.SinhHoatDTO;
 import edu.hust.quanlydancu.dtos.ThamGiaDTO;
+import edu.hust.quanlydancu.entities.NhanKhau;
 import edu.hust.quanlydancu.entities.SinhHoat;
 import edu.hust.quanlydancu.entities.ThamGia;
 import edu.hust.quanlydancu.mapper.SinhHoatMapper;
 import edu.hust.quanlydancu.mapper.ThamGiaMapper;
+import edu.hust.quanlydancu.repositories.NhanKhauRepository;
 import edu.hust.quanlydancu.repositories.SinhHoatRepository;
 import edu.hust.quanlydancu.repositories.ThamGiaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +27,8 @@ public class SinhHoatService {
     SinhHoatRepository sinhHoatRepository;
     @Autowired
     ThamGiaRepository thamGiaRepository;
+    @Autowired
+    NhanKhauRepository nhanKhauRepository;
     @Autowired
     SinhHoatMapper sinhHoatMapper;
     @Autowired
@@ -52,9 +56,17 @@ public class SinhHoatService {
         }
         return listDto;
     }
-    public void createNew(SinhHoatDTO dto) {
-        SinhHoat entity = sinhHoatRepository.save(sinhHoatMapper.toEntity(dto));
-        sinhHoatMapper.toDto(entity);
+    public void createSinhHoat(SinhHoatDTO dto) {
+        SinhHoat sinhHoat = sinhHoatRepository.save(sinhHoatMapper.toEntity(dto));
+        List<NhanKhau> nhanKhauList = nhanKhauRepository.findAll();
+        for (NhanKhau nhanKhau : nhanKhauList) {
+            ThamGia thamGia = new ThamGia();
+            thamGia.setCoMat((byte) 0);
+            thamGia.setSinhHoat(sinhHoat);
+            thamGia.setNhanKhau(nhanKhau);
+            thamGiaRepository.save(thamGia);
+        }
+        sinhHoatMapper.toDto(sinhHoat);
     }
     public void updateById(SinhHoatDTO dto, Integer id) {
         Optional<SinhHoat> optional = sinhHoatRepository.findById(id);

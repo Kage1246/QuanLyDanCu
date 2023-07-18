@@ -30,7 +30,7 @@ public class SinhHoat {
     @Basic
     @Column(name = "dia_diem", nullable = true, length = 50)
     private String diaDiem;
-    @OneToMany(mappedBy = "sinhHoatByIdSinhHoat")
+    @OneToMany(mappedBy = "sinhHoat")
     private Collection<ThamGia> thamGiasById;
 
     @Override

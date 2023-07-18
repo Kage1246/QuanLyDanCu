@@ -22,20 +22,20 @@ public interface ThamGiaRepository extends JpaRepository<ThamGia, Integer> {
 
     @Query("""
     select t from ThamGia t
-    where t.sinhHoatByIdSinhHoat.chuDe like concat('%', ?1, '%')
-    and t.sinhHoatByIdSinhHoat.batDau between ?2 and ?3
+    where t.sinhHoat.chuDe like concat('%', ?1, '%')
+    and t.sinhHoat.batDau between ?2 and ?3
     """)
     List<ThamGia> findBySinhHoatByIdSinhHoatContains(String chuDe, Date from, Date to);
 
     @Query("""
     select t from ThamGia t
     join ThanhVienCuaHo v
-    on t.nhanKhauByIdNhanKhau.id = v.nhanKhauByIdNhanKhau.id
+    on t.nhanKhau.id = v.nhanKhauByIdNhanKhau.id
     where v.hoKhauByIdHoKhau.chuHo.hoTen like concat('%', ?1, '%')
-    and t.sinhHoatByIdSinhHoat.batDau between ?2 and ?3
+    and t.sinhHoat.batDau between ?2 and ?3
     """)
     List<ThamGia> findByChuHoContains(String chuHo, Date from, Date to);
 
-    @Query("select t from ThamGia t where t.sinhHoatByIdSinhHoat.id = ?1")
+    @Query("select t from ThamGia t where t.sinhHoat.id = ?1")
     List<ThamGia> findAllByIdSinhHoat(Integer idSinhHoat);
 }

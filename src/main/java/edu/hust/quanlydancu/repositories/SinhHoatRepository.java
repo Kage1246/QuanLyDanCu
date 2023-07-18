@@ -23,10 +23,10 @@ public interface SinhHoatRepository extends JpaRepository<SinhHoat, Integer> {
 //    void setSinhHoatById(String chuDe, Timestamp from, Timestamp to, String diaDiem, Integer id);
 
     @Query("""
-    select g.sinhHoatByIdSinhHoat from ThanhVienCuaHo v
-    join ThamGia g on g.nhanKhauByIdNhanKhau = v.nhanKhauByIdNhanKhau
+    select g.sinhHoat from ThanhVienCuaHo v
+    join ThamGia g on g.nhanKhau = v.nhanKhauByIdNhanKhau
     where v.hoKhauByIdHoKhau.chuHo.hoTen like concat('%', ?1, '%')
-    and g.sinhHoatByIdSinhHoat.batDau between ?2 and ?3
+    and g.sinhHoat.batDau between ?2 and ?3
     """)
     List<SinhHoat> findByChuHo(String chuHo, Date from, Date to);
 }

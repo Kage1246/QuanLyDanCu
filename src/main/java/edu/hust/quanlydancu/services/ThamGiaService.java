@@ -58,4 +58,15 @@ public class ThamGiaService {
                 chuHo, from, to
         ));
     }
+    public void updateById(ThamGiaDTO dto, Integer id) {
+        Optional<ThamGia> optional = thamGiaRepository.findById(id);
+        ThamGia newEntity = thamGiaMapper.toEntity(dto);
+        if (optional.isPresent()) {
+            ThamGia entity = optional.get();
+            if (newEntity.getCoMat() != null) {
+                entity.setCoMat(newEntity.getCoMat());
+            }
+            thamGiaRepository.save(entity);
+        }
+    }
 }

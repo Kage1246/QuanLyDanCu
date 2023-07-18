@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class ThamGiaDTO {
     private Integer id;
-    private String sinhHoat;
+    private Integer idSinhHoat;
     private NhanKhau nhanKhau;
+    private Byte coMat;
 }

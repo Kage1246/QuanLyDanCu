@@ -14,11 +14,11 @@ import org.springframework.stereotype.Component;
 @Component
 public interface ThamGiaMapper extends EntityMapper<ThamGiaDTO, ThamGia>{
     @Override
-    @Mapping(source = "sinhHoat", target = "sinhHoatByIdSinhHoat.chuDe")
-    @Mapping(source = "nhanKhau", target = "nhanKhauByIdNhanKhau")
+    @Mapping(source = "idSinhHoat", target = "sinhHoat.id")
+    @Mapping(source = "nhanKhau", target = "nhanKhau")
     ThamGia toEntity(ThamGiaDTO dto);
     @Override
-    @Mapping(source = "sinhHoatByIdSinhHoat.chuDe", target = "sinhHoat")
-    @Mapping(source = "nhanKhauByIdNhanKhau", target = "nhanKhau")
+    @Mapping(source = "sinhHoat.id", target = "idSinhHoat")
+    @Mapping(source = "nhanKhau", target = "nhanKhau")
     ThamGiaDTO toDto(ThamGia entity);
 }

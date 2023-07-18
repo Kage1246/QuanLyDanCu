@@ -69,7 +69,7 @@ public class SinhHoatController {
     @PostMapping("")
     ResponseEntity<?> createKhoanPhi(@RequestBody SinhHoatDTO dto) {
         try {
-            sinhHoatService.createNew(dto);
+            sinhHoatService.createSinhHoat(dto);
             return ResponseEntity.ok().build();
         } catch (Exception e) {
             e.printStackTrace();
