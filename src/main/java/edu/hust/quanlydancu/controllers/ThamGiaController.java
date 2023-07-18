@@ -5,7 +5,7 @@
 package edu.hust.quanlydancu.controllers;
 
 import edu.hust.quanlydancu.dtos.ThamGiaDTO;
-import edu.hust.quanlydancu.repositories.HoKhauRepository;
+import edu.hust.quanlydancu.repositories.NhanKhauRepository;
 import edu.hust.quanlydancu.services.ThamGiaService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +20,7 @@ public class ThamGiaController {
     @Autowired
     ThamGiaService thamGiaService;
     @Autowired
-    HoKhauRepository hoKhauRepository;
+    NhanKhauRepository nhanKhauRepository;
     //http://localhost:8081/api/v1/tham-gia/all
     @GetMapping("/all")
     public ResponseEntity<?> getAll() {
@@ -90,7 +90,7 @@ public class ThamGiaController {
     @GetMapping("/nhan-khau")
     public ResponseEntity<?> getNhanKhau() {
         try {
-            return ResponseEntity.ok(hoKhauRepository.findAll());
+            return ResponseEntity.ok(nhanKhauRepository.findAll());
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
