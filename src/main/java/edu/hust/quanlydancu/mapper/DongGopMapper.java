@@ -19,6 +19,7 @@ public interface DongGopMapper extends EntityMapper<DongGopDTO, DongGop>{
     DongGop toEntity(DongGopDTO dto);
     @Override
     @Mapping(source = "khoanPhiByIdKhoanPhi.id", target = "idKhoanPhi")
+    @Mapping(source = "khoanPhiByIdKhoanPhi.ten", target = "tenKhoanPhi")
     @Mapping(source = "hoKhauByIdHoKhau", target = "hoKhau")
     DongGopDTO toDto(DongGop entity);
 }

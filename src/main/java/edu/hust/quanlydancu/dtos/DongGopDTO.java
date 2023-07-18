@@ -8,6 +8,7 @@ public class DongGopDTO {
     private Integer id;
     private HoKhau hoKhau;
     private Integer idKhoanPhi;
+    private String tenKhoanPhi;
     private Long soTien;
     private java.sql.Date ngayDong;
     private Byte daDong;

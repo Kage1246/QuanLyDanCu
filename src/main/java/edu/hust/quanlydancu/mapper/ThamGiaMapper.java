@@ -19,6 +19,7 @@ public interface ThamGiaMapper extends EntityMapper<ThamGiaDTO, ThamGia>{
     ThamGia toEntity(ThamGiaDTO dto);
     @Override
     @Mapping(source = "sinhHoat.id", target = "idSinhHoat")
+    @Mapping(source = "sinhHoat.chuDe", target = "tenSinhHoat")
     @Mapping(source = "nhanKhau", target = "nhanKhau")
     ThamGiaDTO toDto(ThamGia entity);
 }
