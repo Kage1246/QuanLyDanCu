@@ -5,6 +5,7 @@
 package edu.hust.quanlydancu.controllers;
 
 import edu.hust.quanlydancu.dtos.ThamGiaDTO;
+import edu.hust.quanlydancu.repositories.HoKhauRepository;
 import edu.hust.quanlydancu.services.ThamGiaService;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import java.sql.Date;
 public class ThamGiaController {
     @Autowired
     ThamGiaService thamGiaService;
+    @Autowired
+    HoKhauRepository hoKhauRepository;
     //http://localhost:8081/api/v1/tham-gia/all
     @GetMapping("/all")
     public ResponseEntity<?> getAll() {
@@ -67,8 +70,6 @@ public class ThamGiaController {
     @GetMapping("/by-sinh-hoat")
     public ResponseEntity<?> getBySinhHoat(@RequestParam String name, @RequestParam String from, @RequestParam String to) {
         try {
-            System.out.println(from);
-            System.out.println(to);
             return ResponseEntity.ok(thamGiaService.getAllBySinhHoat(name, Date.valueOf(from), Date.valueOf(to)));
         }catch (Exception e) {
             e.printStackTrace();
@@ -79,9 +80,17 @@ public class ThamGiaController {
     @GetMapping("/by-chu-ho")
     public ResponseEntity<?> getByChuHo(@RequestParam String name, @RequestParam String from, @RequestParam String to) {
         try {
-            System.out.println(from);
-            System.out.println(to);
             return ResponseEntity.ok(thamGiaService.getAllByChuHo(name, Date.valueOf(from), Date.valueOf(to)));
+        }catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body("Bad request");
+        }
+    }
+//    http://localhost:8081/api/v1/tham-gia/nhan-khau
+    @GetMapping("/nhan-khau")
+    public ResponseEntity<?> getNhanKhau() {
+        try {
+            return ResponseEntity.ok(hoKhauRepository.findAll());
         }catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body("Bad request");
