@@ -14,12 +14,12 @@ import java.util.List;
 
 @Repository
 public interface HoKhauRepository extends JpaRepository<HoKhau, Integer> {
-    @Query("""
-    select v.hoKhauByIdHoKhau from ThanhVienCuaHo v
-    join ThamGia g on g.nhanKhau = v.nhanKhauByIdNhanKhau
-    where g.sinhHoat.chuDe like concat('%', ?1, '%')
-    and g.coMat = 1
-    and g.sinhHoat.batDau between ?2 and ?3
-    """)
-    List<HoKhau> findBySinhHoat(String chuDe, Date from, Date to);
+//    @Query("""
+//    select v.hoKhauByIdHoKhau from ThanhVienCuaHo v
+//    join ThamGia g on g.nhanKhau = v.nhanKhauByIdNhanKhau
+//    where g.sinhHoat.chuDe like concat('%', ?1, '%')
+//    and g.coMat = 1
+//    and g.sinhHoat.batDau between ?2 and ?3
+//    """)
+//    List<HoKhau> findBySinhHoat(String chuDe, Date from, Date to);
 }

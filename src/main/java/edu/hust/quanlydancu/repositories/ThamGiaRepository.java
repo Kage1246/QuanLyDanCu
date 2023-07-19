@@ -4,6 +4,7 @@
  */
 package edu.hust.quanlydancu.repositories;
 
+import edu.hust.quanlydancu.entities.ThongKe;
 import edu.hust.quanlydancu.entities.*;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,27 +15,24 @@ import java.util.List;
 
 @Repository
 public interface ThamGiaRepository extends JpaRepository<ThamGia, Integer> {
-//    @Query("""
-//        update ThamGia
-//        set nhanKhauByIdNhanKhau = ?1, sinhHoatByIdSinhHoat = ?2
-//        where id = ?3""")
-//    void setDongGopById(NhanKhau nhanKhau, SinhHoat sinhHoat, Integer id);
-
     @Query("""
-    select t from ThamGia t
-    where t.sinhHoat.chuDe like concat('%', ?1, '%')
-    and t.sinhHoat.batDau between ?2 and ?3
+    select new edu.hust.quanlydancu.entities.ThongKe(v.hoKhauByIdHoKhau.chuHo.hoTen, g.sinhHoat.chuDe)
+    from ThanhVienCuaHo v
+    join ThamGia g on g.nhanKhau = v.nhanKhauByIdNhanKhau
+    where g.sinhHoat.chuDe like concat('%', ?1, '%')
+    and g.coMat = 1
+    and g.sinhHoat.batDau between ?2 and ?3
     """)
-    List<ThamGia> findBySinhHoatByIdSinhHoatContains(String chuDe, Date from, Date to);
+    List<ThongKe> findBySinhHoat(String chuDe, Date from, Date to);
 
     @Query("""
-    select t from ThamGia t
-    join ThanhVienCuaHo v
-    on t.nhanKhau.id = v.nhanKhauByIdNhanKhau.id
+    select new edu.hust.quanlydancu.entities.ThongKe(v.hoKhauByIdHoKhau.chuHo.hoTen, g.sinhHoat.chuDe)
+    from ThanhVienCuaHo v
+    join ThamGia g on g.nhanKhau = v.nhanKhauByIdNhanKhau
     where v.hoKhauByIdHoKhau.chuHo.hoTen like concat('%', ?1, '%')
-    and t.sinhHoat.batDau between ?2 and ?3
+    and g.sinhHoat.batDau between ?2 and ?3
     """)
-    List<ThamGia> findByChuHoContains(String chuHo, Date from, Date to);
+    List<ThongKe> findByChuHo(String chuHo, Date from, Date to);
 
     @Query("select t from ThamGia t where t.sinhHoat.id = ?1")
     List<ThamGia> findAllByIdSinhHoat(Integer idSinhHoat);
