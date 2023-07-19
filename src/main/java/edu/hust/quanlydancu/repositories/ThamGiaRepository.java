@@ -30,6 +30,7 @@ public interface ThamGiaRepository extends JpaRepository<ThamGia, Integer> {
     from ThanhVienCuaHo v
     join ThamGia g on g.nhanKhau = v.nhanKhauByIdNhanKhau
     where v.hoKhauByIdHoKhau.chuHo.hoTen like concat('%', ?1, '%')
+    and g.coMat = 1
     and g.sinhHoat.batDau between ?2 and ?3
     """)
     List<ThongKe> findByChuHo(String chuHo, Date from, Date to);
