@@ -16,7 +16,7 @@ import java.util.List;
 @Repository
 public interface ThamGiaRepository extends JpaRepository<ThamGia, Integer> {
     @Query("""
-    select new edu.hust.quanlydancu.entities.ThongKe(v.hoKhauByIdHoKhau.chuHo.hoTen, g.sinhHoat.chuDe)
+    select distinct new edu.hust.quanlydancu.entities.ThongKe(v.hoKhauByIdHoKhau.chuHo.hoTen, g.sinhHoat.chuDe)
     from ThanhVienCuaHo v
     join ThamGia g on g.nhanKhau = v.nhanKhauByIdNhanKhau
     where g.sinhHoat.chuDe like concat('%', ?1, '%')
@@ -26,7 +26,7 @@ public interface ThamGiaRepository extends JpaRepository<ThamGia, Integer> {
     List<ThongKe> findBySinhHoat(String chuDe, Date from, Date to);
 
     @Query("""
-    select new edu.hust.quanlydancu.entities.ThongKe(v.hoKhauByIdHoKhau.chuHo.hoTen, g.sinhHoat.chuDe)
+    select distinct new edu.hust.quanlydancu.entities.ThongKe(v.hoKhauByIdHoKhau.chuHo.hoTen, g.sinhHoat.chuDe)
     from ThanhVienCuaHo v
     join ThamGia g on g.nhanKhau = v.nhanKhauByIdNhanKhau
     where v.hoKhauByIdHoKhau.chuHo.hoTen like concat('%', ?1, '%')
